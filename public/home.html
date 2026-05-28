@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YAMOTO — MAKALA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #050505;
+    --white: #f0ede6;
+    --red: #c8001a;
+    --red-dim: #7a0010;
+    --gray: #2a2a2a;
+    --gray-mid: #4a4a4a;
+    --gray-light: #999;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+    --font-jp: 'Noto Serif JP', serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 999;
+    opacity: 0.35;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 3rem;
+    mix-blend-mode: normal;
+  }
+
+  nav::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 3rem; right: 3rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gray-mid), transparent);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+    color: var(--white);
+  }
+
+  .nav-logo span {
+    color: var(--red);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid var(--red);
+    color: var(--red);
+    padding: 0.5rem 1.25rem;
+    transition: all 0.2s;
+  }
+
+  .nav-cta:hover {
+    background: var(--red);
+    color: var(--white);
+  }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 65% 40%, rgba(200,0,26,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 30% 60%, rgba(200,0,26,0.06) 0%, transparent 70%),
+      var(--black);
+  }
+
+  .hero-image-placeholder {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 55%;
+    background: linear-gradient(135deg, #111 0%, #1a1a1a 100%);
+    clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-image-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(200,0,26,0.04) 60px, rgba(200,0,26,0.04) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(200,0,26,0.04) 60px, rgba(200,0,26,0.04) 61px);
+  }
+
+  .hero-image-placeholder::after {
+    content: 'PHOTO\AARTISTE';
+    white-space: pre;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--gray-mid);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .hero-image-placeholder .img-credit {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gray-mid);
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+  }
+
+  /* Scanline on image */
+  .hero-image-placeholder .scanline {
+    position: absolute;
+    left: 0; right: 0;
+    height: 2px;
+    background: rgba(200,0,26,0.3);
+    animation: scan 4s linear infinite;
+  }
+
+  @keyframes scan {
+    0% { top: -2px; opacity: 0; }
+    5% { opacity: 1; }
+    95% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 55%;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--red);
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(6rem, 14vw, 13rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  h1 .jp {
+    font-family: var(--font-jp);
+    font-size: clamp(1.5rem, 3vw, 2.8rem);
+    font-weight: 300;
+    letter-spacing: 0.5em;
+    color: var(--gray-light);
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-meta {
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .meta-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+  }
+
+  .meta-value {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--white);
+  }
+
+  .hero-actions {
+    margin-top: 2.5rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    background: var(--red);
+    color: var(--white);
+    padding: 0.9rem 2.5rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: #e8001f;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: color 0.2s;
+  }
+
+  .btn-secondary::after {
+    content: '→';
+    transition: transform 0.2s;
+  }
+
+  .btn-secondary:hover { color: var(--white); }
+  .btn-secondary:hover::after { transform: translateX(4px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 4rem;
+    right: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    z-index: 10;
+  }
+
+  .hero-scroll span {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    writing-mode: vertical-rl;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gray-mid), transparent);
+    animation: scrollpulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollpulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* ─── TRACKLIST ─── */
+  #tracklist {
+    padding: 8rem 3rem;
+    position: relative;
+  }
+
+  #tracklist::before {
+    content: 'YAMOTO';
+    position: absolute;
+    top: 4rem; left: 3rem;
+    font-family: var(--font-display);
+    font-size: 20vw;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.03);
+    pointer-events: none;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid var(--gray);
+    padding-bottom: 1.5rem;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    letter-spacing: 0.1em;
+    color: var(--white);
+  }
+
+  .section-count {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    text-transform: uppercase;
+  }
+
+  .tracklist-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    position: relative;
+  }
+
+  .track-item {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--gray);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .track-item::before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0; bottom: 0;
+    width: 100%;
+    background: rgba(200,0,26,0.05);
+    transition: left 0.3s ease;
+  }
+
+  .track-item:hover::before { left: 0; }
+
+  .track-item:hover .track-name { color: var(--white); }
+  .track-item:hover .track-num { color: var(--red); }
+
+  .track-num {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--gray-mid);
+    min-width: 2rem;
+    transition: color 0.2s;
+  }
+
+  .track-name {
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    transition: color 0.2s;
+    flex: 1;
+  }
+
+  .track-duration {
+    font-size: 11px;
+    color: var(--gray-mid);
+  }
+
+  .track-play {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    color: var(--gray-mid);
+    opacity: 0;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .track-item:hover .track-play {
+    opacity: 1;
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  /* Album cover area */
+  .album-cover {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 4rem;
+    align-items: flex-start;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+  }
+
+  .cover-placeholder {
+    width: 220px;
+    height: 220px;
+    flex-shrink: 0;
+    background: var(--gray);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .cover-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(200,0,26,0.08) 10px, rgba(200,0,26,0.08) 11px);
+  }
+
+  .cover-placeholder span {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+    color: var(--gray-mid);
+    position: relative;
+    z-index: 1;
+  }
+
+  .cover-info {
+    padding-top: 0.5rem;
+  }
+
+  .cover-info h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .cover-info p {
+    font-size: 12px;
+    color: var(--gray-mid);
+    line-height: 2;
+    letter-spacing: 0.05em;
+  }
+
+  .cover-info .release-badge {
+    display: inline-block;
+    border: 1px solid var(--red-dim);
+    color: var(--red);
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    padding: 0.3rem 0.75rem;
+    text-transform: uppercase;
+    margin-top: 1rem;
+  }
+
+  /* ─── ARTIST BIO ─── */
+  #artist {
+    padding: 8rem 3rem;
+    background: #080808;
+    position: relative;
+  }
+
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 6rem;
+    align-items: start;
+    margin-top: 4rem;
+  }
+
+  .bio-portrait {
+    aspect-ratio: 3/4;
+    background: var(--gray);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bio-portrait::after {
+    content: 'PHOTO\ARTISTE';
+    white-space: pre;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: var(--gray-mid);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .bio-portrait .portrait-frame {
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(200,0,26,0.2);
+    pointer-events: none;
+  }
+
+  .bio-text {
+    padding-top: 1rem;
+  }
+
+  .bio-text h2 {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    letter-spacing: 0.05em;
+    line-height: 0.9;
+    margin-bottom: 2rem;
+  }
+
+  .bio-text h2 em {
+    display: block;
+    font-family: var(--font-jp);
+    font-style: normal;
+    font-size: 1rem;
+    letter-spacing: 0.5em;
+    color: var(--gray-light);
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+  }
+
+  .bio-text p {
+    font-size: 14px;
+    line-height: 2;
+    color: var(--gray-light);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  .bio-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    margin-top: 3rem;
+    border-top: 1px solid var(--gray);
+    border-left: 1px solid var(--gray);
+  }
+
+  .bio-stat {
+    padding: 1.5rem;
+    border-right: 1px solid var(--gray);
+    border-bottom: 1px solid var(--gray);
+  }
+
+  .bio-stat .stat-num {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  .bio-stat .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-top: 0.25rem;
+  }
+
+  /* ─── TOUR DATES ─── */
+  #tour {
+    padding: 8rem 3rem;
+  }
+
+  .tour-list {
+    margin-top: 3rem;
+  }
+
+  .tour-item {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--gray);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tour-item:first-child { border-top: 1px solid var(--gray); }
+
+  .tour-item:hover { padding-left: 1rem; }
+  .tour-item:hover .tour-date { color: var(--red); }
+
+  .tour-date {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    color: var(--gray-light);
+    transition: color 0.2s;
+  }
+
+  .tour-city {
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .tour-venue {
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--gray-light);
+    margin-top: 0.25rem;
+  }
+
+  .tour-country {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+  }
+
+  .tour-ticket {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.5rem 1.25rem;
+    border: 1px solid var(--gray-mid);
+    color: var(--gray-light);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .tour-ticket:hover {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .tour-ticket.sold-out {
+    border-color: var(--gray);
+    color: var(--gray-mid);
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+
+  /* ─── BLOG ─── */
+  #news {
+    padding: 8rem 3rem;
+    background: #080808;
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1.5px;
+    margin-top: 3rem;
+  }
+
+  .news-card {
+    background: var(--gray);
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .news-card:hover { background: #2f2f2f; }
+
+  .news-card.featured { min-height: 400px; }
+
+  .news-img {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #181818, #0f0f0f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--gray-mid);
+    text-transform: uppercase;
+  }
+
+  .news-img::after {
+    content: attr(data-label);
+  }
+
+  .news-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 40%, transparent 100%);
+  }
+
+  .news-content { position: relative; z-index: 1; }
+
+  .news-cat {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.5rem;
+  }
+
+  .news-title {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+
+  .news-card.featured .news-title { font-size: 2rem; }
+
+  .news-date {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
+  }
+
+  /* ─── SOCIALS ─── */
+  #socials {
+    padding: 6rem 3rem;
+    text-align: center;
+    border-top: 1px solid var(--gray);
+    border-bottom: 1px solid var(--gray);
+  }
+
+  .socials-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gray-light);
+    margin-bottom: 2rem;
+  }
+
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  .social-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--gray-mid);
+    transition: color 0.2s;
+  }
+
+  .social-link:hover { color: var(--white); }
+
+  .social-icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: all 0.2s;
+  }
+
+  .social-link:hover .social-icon {
+    border-color: var(--red);
+    color: var(--red);
+  }
+
+  .social-name {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    color: var(--gray-mid);
+  }
+
+  .footer-copy {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--gray-mid);
+  }
+
+  .footer-admin {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-mid);
+    border-bottom: 1px solid var(--gray-mid);
+    transition: color 0.2s;
+  }
+
+  .footer-admin:hover { color: var(--gray-light); }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 1.25rem 1.5rem; }
+    .nav-links { display: none; }
+
+    #hero { padding: 0 1.5rem 3rem; }
+    h1 { font-size: 5.5rem; }
+    .hero-content { max-width: 100%; }
+    .hero-image-placeholder { display: none; }
+    .hero-meta { gap: 1.5rem; flex-wrap: wrap; }
+
+    #tracklist, #artist, #tour, #news { padding: 4rem 1.5rem; }
+
+    .tracklist-grid { grid-template-columns: 1fr; }
+
+    .bio-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .bio-portrait { aspect-ratio: 4/3; }
+    .bio-text h2 { font-size: 3.5rem; }
+
+    .tour-item { grid-template-columns: 80px 1fr auto; gap: 1rem; }
+    .tour-country { display: none; }
+
+    .news-grid { grid-template-columns: 1fr; }
+
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+
+  /* ─── FADE IN ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">MAK<span>●</span>ALA</div>
+  <ul class="nav-links">
+    <li><a href="#tracklist">Album</a></li>
+    <li><a href="#artist">Artiste</a></li>
+    <li><a href="#tour">Tournée</a></li>
+    <li><a href="#news">Actualités</a></li>
+  </ul>
+  <a href="#tour" class="nav-cta">Billets →</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+
+  <div class="hero-image-placeholder">
+    <div class="scanline"></div>
+    <span class="img-credit">© Équipe créa 2026</span>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Nouvel album — 23 janvier 2026</div>
+    <h1>
+      <span class="jp">やもと</span>
+      YAMOTO
+    </h1>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="meta-label">Artiste</span>
+        <span class="meta-value">Makala</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="meta-label">Label</span>
+        <span class="meta-value">Colors Records</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="meta-label">Titres</span>
+        <span class="meta-value">8 tracks</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="meta-label">Durée</span>
+        <span class="meta-value">28 min</span>
+      </div>
+    </div>
+
+    <div class="hero-actions">
+      <a href="https://open.spotify.com/album/0EjCJLiU0XitcOncE1ZCdk" class="btn-primary">Écouter maintenant</a>
+      <a href="#tracklist" class="btn-secondary">Voir la tracklist</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Défiler</span>
+  </div>
+</section>
+
+<!-- TRACKLIST -->
+<section id="tracklist">
+  <div class="section-header reveal">
+    <span class="section-title">Tracklist</span>
+    <span class="section-count">8 titres / 28 min</span>
+  </div>
+
+  <div class="album-cover reveal">
+    <div class="cover-placeholder">
+      <span>YAMOTO</span>
+    </div>
+    <div class="cover-info">
+      <h3>YAMOTO</h3>
+      <p>
+        Produit par Varnish La Piscine<br>
+        Label : Colors Records / Capitol Music France<br>
+        Distribution : Universal Music France<br>
+        Feat. : La Fève
+      </p>
+      <span class="release-badge">Disponible maintenant</span>
+    </div>
+  </div>
+
+  <div class="tracklist-grid">
+    <div class="track-item reveal">
+      <span class="track-num">01</span>
+      <span class="track-name">Yamotema</span>
+      <span class="track-duration">3:20</span>
+      <div class="track-play">▶</div>
+    </div>
+    <div class="track-item reveal">
+      <span class="track-num">02</span>
+      <span class="track-name">Prends Soin de Toi</span>
+      <span class="track-duration">3:45</span>
+      <div class="track-play">▶</div>
+    </div>
+    <div class="track-item reveal">
+      <span class="track-num">03</span>
+      <span class="track-name">Tribus Disparues</span>
+      <span class="track-duration">3:10</span>
+      <div class="track-play">▶</div>
+    </div>
+    <div class="track-item reveal">
+      <span class="track-num">04</span>
+      <span class="track-name">Loketo</span>
+      <span class="track-duration">3:30</span>
+      <div class="track-play">▶</div>
+    </div>
+    <div class="track-item reveal">
+      <span class="track-num">05</span>
+      <span class="track-name">Hotel Yotsuya</span>
+      <span class="track-duration">3:55</span>
+      <div class="track-play">▶</div>
+    </div>
+    <div class="track-item reveal">
+      <span class="track-num">06</span>
+      <span class="track-name">Slo' Jam <span style="font-size:10px;color:var(--red)">feat. La Fève</span></span>
+      <span class="track-duration">3:40</span>
+      <div class="track-play">▶</div>
+    </div>
+    <div class="track-item reveal">
+      <span class="track-num">07</span>
+      <span class="track-name">Dembouz</span>
+      <span class="track-duration">3:25</span>
+      <div class="track-play">▶</div>
+    </div>
+    <div class="track-item reveal">
+      <span class="track-num">08</span>
+      <span class="track-name">Whim Maserati</span>
+      <span class="track-duration">3:15</span>
+      <div class="track-play">▶</div>
+    </div>
+  </div>
+</section>
+
+<!-- ARTIST -->
+<section id="artist">
+  <div class="section-header reveal">
+    <span class="section-title">L'Artiste</span>
+  </div>
+
+  <div class="bio-grid">
+    <div class="bio-portrait reveal">
+      <div class="portrait-frame"></div>
+    </div>
+
+    <div class="bio-text reveal">
+      <h2>
+        <em>まから</em>
+        MAKALA
+      </h2>
+      <p>
+        Jordy Makala, né en 1993 à Bienne, est un rappeur suisse d'origine congolaise. Figure centrale du collectif genevois <strong style="color:var(--white)">Superwak Clique</strong>, aux côtés de Di-Meh et Slimka, il s'est imposé comme l'un des artistes les plus exigeants et singuliers du rap francophone.
+      </p>
+      <p>
+        Son univers conjugue trap futuriste, expérimentations sonores et une esthétique visuelle rétro-moderne à nulle autre pareille. Avec <em style="color:var(--white)">YAMOTO</em>, Makala pousse plus loin l'alchimie avec son producteur de toujours, Varnish La Piscine — 8 titres denses, intenses, sans compromis.
+      </p>
+      <p>
+        Premier rappeur suisse à remplir l'Olympia de Paris (2023), sa puissance scénique est légendaire. Sa nouvelle tournée 2026 s'annonce comme un événement incontournable.
+      </p>
+
+      <div class="bio-stats">
+        <div class="bio-stat">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Albums</div>
+        </div>
+        <div class="bio-stat">
+          <div class="stat-num">1er</div>
+          <div class="stat-label">Rappeur suisse à l'Olympia</div>
+        </div>
+        <div class="bio-stat">
+          <div class="stat-num">2026</div>
+          <div class="stat-label">Tournée France</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOUR -->
+<section id="tour">
+  <div class="section-header reveal">
+    <span class="section-title">Tournée</span>
+    <span class="section-count">YAMOTO Tour 2026</span>
+  </div>
+
+  <div class="tour-list">
+    <div class="tour-item reveal">
+      <div class="tour-date">15 MAR</div>
+      <div>
+        <div class="tour-city">Genève</div>
+        <div class="tour-venue">L'Usine</div>
+      </div>
+      <div class="tour-country">Suisse</div>
+      <a href="#" class="tour-ticket sold-out">Complet</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">22 MAR</div>
+      <div>
+        <div class="tour-city">Lyon</div>
+        <div class="tour-venue">Le Transbordeur</div>
+      </div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">29 MAR</div>
+      <div>
+        <div class="tour-city">Marseille</div>
+        <div class="tour-venue">La Friche Belle de Mai</div>
+      </div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">05 AVR</div>
+      <div>
+        <div class="tour-city">Bordeaux</div>
+        <div class="tour-venue">Rock School Barbey</div>
+      </div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">12 AVR</div>
+      <div>
+        <div class="tour-city">Paris</div>
+        <div class="tour-venue">Zénith Paris — La Villette</div>
+      </div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">27 NOV</div>
+      <div>
+        <div class="tour-city">Paris</div>
+        <div class="tour-venue">Zénith Paris — La Villette</div>
+      </div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG / NEWS -->
+<section id="news">
+  <div class="section-header reveal">
+    <span class="section-title">Actualités</span>
+    <a href="blog.html" style="font-size:11px;letter-spacing:0.2em;color:var(--gray-light);text-transform:uppercase;">Tout voir →</a>
+  </div>
+
+  <div class="news-grid reveal">
+    <div class="news-card featured">
+      <div class="news-img" data-label="Image article"></div>
+      <div class="news-overlay"></div>
+      <div class="news-content">
+        <div class="news-cat">Interview</div>
+        <div class="news-title">« YAMOTO, c'est l'heure du bilan » — Makala se confie</div>
+        <div class="news-date">24 Jan 2026</div>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-img" data-label="Image article"></div>
+      <div class="news-overlay"></div>
+      <div class="news-content">
+        <div class="news-cat">Clip</div>
+        <div class="news-title">Slo' Jam feat. La Fève — le clip</div>
+        <div class="news-date">20 Jan 2026</div>
+      </div>
+    </div>
+    <div class="news-card">
+      <div class="news-img" data-label="Image article"></div>
+      <div class="news-overlay"></div>
+      <div class="news-content">
+        <div class="news-cat">Tournée</div>
+        <div class="news-title">Dates complètes de la tournée YAMOTO 2026</div>
+        <div class="news-date">15 Jan 2026</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIALS -->
+<section id="socials">
+  <div class="socials-label">Suivre Makala</div>
+  <div class="social-links">
+    <a href="#" class="social-link">
+      <div class="social-icon">IG</div>
+      <span class="social-name">Instagram</span>
+    </a>
+    <a href="#" class="social-link">
+      <div class="social-icon">YT</div>
+      <span class="social-name">YouTube</span>
+    </a>
+    <a href="#" class="social-link">
+      <div class="social-icon">SP</div>
+      <span class="social-name">Spotify</span>
+    </a>
+    <a href="#" class="social-link">
+      <div class="social-icon">TK</div>
+      <span class="social-name">TikTok</span>
+    </a>
+    <a href="#" class="social-link">
+      <div class="social-icon">TW</div>
+      <span class="social-name">X / Twitter</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MAKALA — YAMOTO</div>
+  <div class="footer-copy">© 2026 Colors Records / Capitol Music France</div>
+  <a href="admin/index.php" class="footer-admin">Admin ↗</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
