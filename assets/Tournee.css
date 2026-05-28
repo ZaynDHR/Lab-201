@@ -1,0 +1,107 @@
+/* ═══════════════════════════════
+   TOURNEE.CSS — tournee.html
+   ═══════════════════════════════ */
+
+/* ─── TOUR SECTION ─── */
+#tour {
+  padding: 8rem 3rem;
+}
+
+.tour-list {
+  margin-top: 3rem;
+}
+
+/* ─── TOUR ITEM ─── */
+.tour-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--gray);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tour-item:first-child {
+  border-top: 1px solid var(--gray);
+}
+
+.tour-item:hover {
+  padding-left: 1rem;
+}
+
+.tour-item:hover .tour-date {
+  color: var(--red);
+}
+
+.tour-date {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  color: var(--gray-light);
+  transition: color 0.2s;
+}
+
+.tour-city {
+  font-size: 15px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--white);
+}
+
+.tour-venue {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--gray-light);
+  margin-top: 0.25rem;
+}
+
+.tour-country {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+}
+
+/* ─── TICKET BUTTON ─── */
+.tour-ticket {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.25rem;
+  border: 1px solid var(--gray-mid);
+  color: var(--gray-light);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.tour-ticket:hover {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.tour-ticket.sold-out {
+  border-color: var(--gray);
+  color: var(--gray-mid);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+
+  #tour {
+    padding: 4rem 1.5rem;
+  }
+
+  .tour-item {
+    grid-template-columns: 80px 1fr auto;
+    gap: 1rem;
+  }
+
+  .tour-country {
+    display: none;
+  }
+
+}

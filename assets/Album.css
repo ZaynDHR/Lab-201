@@ -1,0 +1,191 @@
+/* ═══════════════════════════════
+   ALBUM.CSS — album.html
+   ═══════════════════════════════ */
+
+/* ─── TRACKLIST SECTION ─── */
+#tracklist {
+  padding: 8rem 3rem;
+  position: relative;
+}
+
+#tracklist::before {
+  content: 'YAMOTO';
+  position: absolute;
+  top: 4rem;
+  left: 3rem;
+  font-family: var(--font-display);
+  font-size: 20vw;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.03);
+  pointer-events: none;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ─── TRACKLIST GRID ─── */
+.tracklist-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  position: relative;
+}
+
+/* ─── TRACK ITEM ─── */
+.track-item {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--gray);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.track-item::before {
+  content: '';
+  position: absolute;
+  left: -100%;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  background: rgba(200,0,26,0.05);
+  transition: left 0.3s ease;
+}
+
+.track-item:hover::before {
+  left: 0;
+}
+
+.track-item:hover .track-name {
+  color: var(--white);
+}
+
+.track-item:hover .track-num {
+  color: var(--red);
+}
+
+.track-num {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--gray-mid);
+  min-width: 2rem;
+  transition: color 0.2s;
+}
+
+.track-name {
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-light);
+  transition: color 0.2s;
+  flex: 1;
+}
+
+.track-duration {
+  font-size: 11px;
+  color: var(--gray-mid);
+}
+
+.track-play {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--gray);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8px;
+  color: var(--gray-mid);
+  opacity: 0;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.track-item:hover .track-play {
+  opacity: 1;
+  border-color: var(--red);
+  color: var(--red);
+}
+
+/* ─── ALBUM COVER ─── */
+.album-cover {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+  margin-bottom: 4rem;
+  margin-top: 2rem;
+}
+
+.cover-placeholder {
+  width: 220px;
+  height: 220px;
+  flex-shrink: 0;
+  background: var(--gray);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cover-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(200,0,26,0.08) 10px, rgba(200,0,26,0.08) 11px);
+}
+
+.cover-placeholder span {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  letter-spacing: 0.1em;
+  color: var(--gray-mid);
+  position: relative;
+  z-index: 1;
+}
+
+.cover-info {
+  padding-top: 0.5rem;
+}
+
+.cover-info h3 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.2em;
+  color: var(--gray-light);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.cover-info p {
+  font-size: 12px;
+  color: var(--gray-mid);
+  line-height: 2;
+  letter-spacing: 0.05em;
+}
+
+.cover-info .release-badge {
+  display: inline-block;
+  border: 1px solid var(--red-dim);
+  color: var(--red);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  padding: 0.3rem 0.75rem;
+  text-transform: uppercase;
+  margin-top: 1rem;
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+
+  #tracklist {
+    padding: 4rem 1.5rem;
+  }
+
+  .tracklist-grid {
+    grid-template-columns: 1fr;
+  }
+
+}

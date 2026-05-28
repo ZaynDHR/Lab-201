@@ -1,0 +1,133 @@
+/* ═══════════════════════════════
+   ARTISTE.CSS — artiste.html
+   ═══════════════════════════════ */
+
+/* ─── ARTIST SECTION ─── */
+#artist {
+  padding: 8rem 3rem;
+  background: #080808;
+  position: relative;
+}
+
+/* ─── BIO GRID ─── */
+.bio-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 6rem;
+  align-items: start;
+  margin-top: 4rem;
+}
+
+/* ─── PORTRAIT ─── */
+.bio-portrait {
+  aspect-ratio: 3/4;
+  background: var(--gray);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bio-portrait::after {
+  content: 'PHOTO\ARTISTE';
+  white-space: pre;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--gray-mid);
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.bio-portrait .portrait-frame {
+  position: absolute;
+  inset: 12px;
+  border: 1px solid rgba(200,0,26,0.2);
+  pointer-events: none;
+}
+
+/* ─── BIO TEXT ─── */
+.bio-text {
+  padding-top: 1rem;
+}
+
+.bio-text h2 {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  letter-spacing: 0.05em;
+  line-height: 0.9;
+  margin-bottom: 2rem;
+}
+
+.bio-text h2 em {
+  display: block;
+  font-family: var(--font-jp);
+  font-style: normal;
+  font-size: 1rem;
+  letter-spacing: 0.5em;
+  color: var(--gray-light);
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+}
+
+.bio-text p {
+  font-size: 14px;
+  line-height: 2;
+  color: var(--gray-light);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.03em;
+}
+
+/* ─── BIO STATS ─── */
+.bio-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 3rem;
+  border-top: 1px solid var(--gray);
+  border-left: 1px solid var(--gray);
+}
+
+.bio-stat {
+  padding: 1.5rem;
+  border-right: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray);
+}
+
+.bio-stat .stat-num {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  color: var(--white);
+  letter-spacing: 0.05em;
+}
+
+.bio-stat .stat-label {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gray-light);
+  margin-top: 0.25rem;
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+
+  #artist {
+    padding: 4rem 1.5rem;
+  }
+
+  .bio-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .bio-portrait {
+    aspect-ratio: 4/3;
+  }
+
+  .bio-text h2 {
+    font-size: 3.5rem;
+  }
+
+}

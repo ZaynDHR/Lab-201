@@ -1,0 +1,177 @@
+/* ═══════════════════════════════
+   ACTUALITES.CSS — actualites.html
+   ═══════════════════════════════ */
+
+/* ─── NEWS SECTION ─── */
+#news {
+  padding: 8rem 3rem;
+  background: #080808;
+}
+
+/* ─── MARQUEE WRAPPER ─── */
+.news-marquee-wrap {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 3rem;
+  border-top: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray);
+}
+
+.news-marquee-wrap::before,
+.news-marquee-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.news-marquee-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, #080808, transparent);
+}
+
+.news-marquee-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, #080808, transparent);
+}
+
+/* ─── MARQUEE TRACK ─── */
+.news-marquee {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  padding: 2.5rem 0;
+}
+
+.news-marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  white-space: nowrap;
+  animation: marquee 45s linear infinite;
+}
+
+.news-marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ─── MARQUEE ITEM ─── */
+.news-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.25rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.news-marquee-item:hover {
+  opacity: 0.75;
+}
+
+/* ─── PHOTO ─── */
+.news-marquee-photo {
+  width: 80px;
+  height: 80px;
+  flex-shrink: 0;
+  background: var(--gray);
+  border: 1px solid #333;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.news-marquee-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* Placeholder shown when no image */
+.news-marquee-photo::before {
+  content: 'IMG';
+  position: absolute;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--gray-mid);
+  z-index: 0;
+}
+
+/* ─── TEXT BLOCK ─── */
+.news-marquee-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-width: 280px;
+}
+
+.news-marquee-cat {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--red);
+  border: 1px solid var(--red-dim);
+  padding: 0.2rem 0.6rem;
+  align-self: flex-start;
+  white-space: nowrap;
+}
+
+.news-marquee-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  white-space: normal;
+  line-height: 1.2;
+}
+
+.news-marquee-date {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--gray-light);
+  white-space: nowrap;
+}
+
+/* ─── SEPARATOR ─── */
+.news-marquee-sep {
+  color: var(--red);
+  font-size: 1rem;
+  flex-shrink: 0;
+  opacity: 0.4;
+}
+
+/* ─── MOBILE ─── */
+@media (max-width: 768px) {
+
+  #news {
+    padding: 4rem 1.5rem;
+  }
+
+  .news-marquee-photo {
+    width: 60px;
+    height: 60px;
+  }
+
+  .news-marquee-title {
+    font-size: 0.9rem;
+  }
+
+  .news-marquee-track {
+    animation-duration: 30s;
+  }
+
+}

@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tournée — YAMOTO / MAKALA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/main.css">
+<link rel="stylesheet" href="assets/Tournee.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><a href="index.html">MAK<span>●</span>ALA</a></div>
+  <ul class="nav-links">
+    <li><a href="album.html">Album</a></li>
+    <li><a href="artiste.html">Artiste</a></li>
+    <li><a href="tournee.html" class="active">Tournée</a></li>
+    <li><a href="actualites.html">Actualités</a></li>
+  </ul>
+  <a href="tournee.html" class="nav-cta">Billets →</a>
+</nav>
+
+<!-- TOUR -->
+<section id="tour" class="page-section">
+  <div class="section-header reveal">
+    <span class="section-title">Tournée</span>
+    <span class="section-count">YAMOTO Tour 2026</span>
+  </div>
+  <div class="tour-list">
+    <div class="tour-item reveal">
+      <div class="tour-date">15 MAR</div>
+      <div><div class="tour-city">Genève</div><div class="tour-venue">L'Usine</div></div>
+      <div class="tour-country">Suisse</div>
+      <a href="#" class="tour-ticket sold-out">Complet</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">22 MAR</div>
+      <div><div class="tour-city">Lyon</div><div class="tour-venue">Le Transbordeur</div></div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">29 MAR</div>
+      <div><div class="tour-city">Marseille</div><div class="tour-venue">La Friche Belle de Mai</div></div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">05 AVR</div>
+      <div><div class="tour-city">Bordeaux</div><div class="tour-venue">Rock School Barbey</div></div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">12 AVR</div>
+      <div><div class="tour-city">Paris</div><div class="tour-venue">Zénith Paris — La Villette</div></div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+    <div class="tour-item reveal">
+      <div class="tour-date">27 NOV</div>
+      <div><div class="tour-city">Paris</div><div class="tour-venue">Zénith Paris — La Villette</div></div>
+      <div class="tour-country">France</div>
+      <a href="#" class="tour-ticket">Billetterie</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MAKALA — YAMOTO</div>
+  <div class="footer-copy">© 2026 Colors Records / Capitol Music France</div>
+  <a href="admin/index.php" class="footer-admin">Admin ↗</a>
+</footer>
+
+<script>
+  document.querySelectorAll('.reveal').forEach(el => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>

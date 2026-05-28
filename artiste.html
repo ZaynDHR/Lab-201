@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Artiste — MAKALA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/main.css">
+<link rel="stylesheet" href="assets/Artiste.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo"><a href="index.html">MAK<span>●</span>ALA</a></div>
+  <ul class="nav-links">
+    <li><a href="album.html">Album</a></li>
+    <li><a href="artiste.html" class="active">Artiste</a></li>
+    <li><a href="tournee.html">Tournée</a></li>
+    <li><a href="actualites.html">Actualités</a></li>
+  </ul>
+  <a href="tournee.html" class="nav-cta">Billets →</a>
+</nav>
+
+<!-- ARTIST BIO -->
+<section id="artist" class="page-section">
+  <div class="section-header reveal">
+    <span class="section-title">L'Artiste</span>
+  </div>
+  <div class="bio-grid">
+    <div class="bio-portrait reveal">
+      <div class="portrait-frame"></div>
+    </div>
+    <div class="bio-text reveal">
+      <h2>
+        <em>まから</em>
+        MAKALA
+      </h2>
+      <p>Jordy Makala, né en 1993 à Bienne, est un rappeur suisse d'origine congolaise. Figure centrale du collectif genevois <strong style="color:var(--white)">Superwak Clique</strong>, aux côtés de Di-Meh et Slimka, il s'est imposé comme l'un des artistes les plus exigeants et singuliers du rap francophone.</p>
+      <p>Son univers conjugue trap futuriste, expérimentations sonores et une esthétique visuelle rétro-moderne à nulle autre pareille. Avec <em style="color:var(--white)">YAMOTO</em>, Makala pousse plus loin l'alchimie avec son producteur de toujours, Varnish La Piscine — 8 titres denses, intenses, sans compromis.</p>
+      <p>Premier rappeur suisse à remplir l'Olympia de Paris (2023), sa puissance scénique est légendaire. Sa nouvelle tournée 2026 s'annonce comme un événement incontournable.</p>
+      <div class="bio-stats">
+        <div class="bio-stat"><div class="stat-num">3+</div><div class="stat-label">Albums</div></div>
+        <div class="bio-stat"><div class="stat-num">1er</div><div class="stat-label">Rappeur suisse à l'Olympia</div></div>
+        <div class="bio-stat"><div class="stat-num">2026</div><div class="stat-label">Tournée France</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">MAKALA — YAMOTO</div>
+  <div class="footer-copy">© 2026 Colors Records / Capitol Music France</div>
+  <a href="admin/index.php" class="footer-admin">Admin ↗</a>
+</footer>
+
+<script>
+  document.querySelectorAll('.reveal').forEach(el => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
