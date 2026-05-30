@@ -96,7 +96,6 @@ nav::after {
 }
 
 .nav-links a:hover { color: var(--white); }
-
 .nav-links a.active { color: var(--white); }
 
 .nav-links a.active::after {
@@ -502,6 +501,8 @@ h1 {
   .nav-cta {
     font-size: 10px;
     padding: 0.4rem 0.9rem;
+    width: auto;
+    align-self: flex-start;
   }
 
   /* HERO */
@@ -511,12 +512,11 @@ h1 {
     min-height: 100svh;
   }
 
-  /* Show image as background on mobile */
   .hero-image-placeholder {
     display: block;
     width: 100%;
     clip-path: none;
-    opacity: 0.35;
+    opacity: 0.5;
   }
 
   .hero-content {
@@ -547,9 +547,7 @@ h1 {
   .hero-scroll { display: none; }
 
   /* SOCIALS */
-  #socials {
-    padding: 3rem 1.25rem;
-  }
+  #socials { padding: 3rem 1.25rem; }
 
   .social-links { gap: 1.5rem; }
 
