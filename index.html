@@ -21,9 +21,14 @@
     <li><a href="#news">Actualités</a></li>
   </ul>
   <a href="#tour" class="nav-cta">Billets →</a>
+  <button class="nav-burger" id="nav-burger" aria-label="Menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
 </nav>
 
-<!-- HERO (from index.html) -->
+<!-- HERO -->
 <section id="hero">
   <div class="hero-bg"></div>
   <div class="hero-image-placeholder">
@@ -34,8 +39,8 @@
   <div class="hero-content">
     <div class="hero-eyebrow">Nouvel album — 23 janvier 2026</div>
     <h1>
-  <img src="./png/Logo.png" alt="YAMOTO" class="hero-logo">
-</h1>
+      <img src="./png/Logo.png" alt="YAMOTO" class="hero-logo">
+    </h1>
     <div class="hero-meta">
       <div class="hero-meta-item"><span class="meta-label">Artiste</span><span class="meta-value">Makala</span></div>
       <div class="hero-meta-item"><span class="meta-label">Label</span><span class="meta-value">Colors Records</span></div>
@@ -61,7 +66,6 @@
   <div class="socials-label">Suivre Makala</div>
   <div class="social-links">
 
-    <!-- Instagram -->
     <a href="#" class="social-link">
       <div class="social-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -71,7 +75,6 @@
       <span class="social-name">Instagram</span>
     </a>
 
-    <!-- YouTube -->
     <a href="#" class="social-link">
       <div class="social-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -81,7 +84,6 @@
       <span class="social-name">YouTube</span>
     </a>
 
-    <!-- Spotify -->
     <a href="https://open.spotify.com/album/0EjCJLiU0XitcOncE1ZCdk" class="social-link">
       <div class="social-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -91,7 +93,6 @@
       <span class="social-name">Spotify</span>
     </a>
 
-    <!-- TikTok -->
     <a href="#" class="social-link">
       <div class="social-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -101,7 +102,6 @@
       <span class="social-name">TikTok</span>
     </a>
 
-    <!-- X / Twitter -->
     <a href="#" class="social-link">
       <div class="social-icon">
         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
@@ -120,6 +120,24 @@
   <div class="footer-copy">© 2026 Colors Records / Capitol Music France</div>
   <a href="admin/index.html" class="footer-admin">Admin ↗</a>
 </footer>
+
+<!-- BURGER SCRIPT -->
+<script>
+  const burger = document.getElementById('nav-burger');
+  const navLinks = document.querySelector('.nav-links');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    navLinks.classList.toggle('open');
+    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+  });
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      burger.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+</script>
 
 <script type="module" src="./main.js"></script>
 
