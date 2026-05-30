@@ -530,7 +530,7 @@ h1 {
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
-    z-index: 99;
+    z-index: 200;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s;
@@ -566,7 +566,7 @@ h1 {
 
   .nav-burger {
     display: flex !important;
-    z-index: 102;
+    z-index: 201;
   }
 
   #hero {
