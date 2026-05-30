@@ -81,13 +81,13 @@ nav::after {
 
 .nav-logo span { color: var(--red); }
 
-.nav-links {
+.nav-links-desktop {
   display: flex;
   gap: 2.5rem;
   list-style: none;
 }
 
-.nav-links a {
+.nav-links-desktop a, .nav-links a {
   font-size: 11px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -95,10 +95,10 @@ nav::after {
   transition: color 0.2s;
 }
 
-.nav-links a:hover { color: var(--white); }
-.nav-links a.active { color: var(--white); }
+.nav-links-desktop a:hover, .nav-links a:hover { color: var(--white); }
+.nav-links-desktop a.active, .nav-links a.active { color: var(--white); }
 
-.nav-links a.active::after {
+.nav-links-desktop a.active, .nav-links-desktop a.active::after, .nav-links a.active::after {
   content: '';
   display: block;
   width: 100%;
@@ -518,7 +518,7 @@ h1 {
 
   .nav-logo { font-size: 1.2rem; }
 
-  .nav-links {
+  .nav-links-desktop {
     position: fixed;
     top: 0;
     left: 0;
@@ -550,7 +550,7 @@ h1 {
     list-style: none;
   }
 
-  .nav-links a {
+  .nav-links-desktop a, .nav-links a {
     font-size: 2.5rem;
     font-family: var(--font-display);
     letter-spacing: 0.2em;
@@ -560,9 +560,11 @@ h1 {
     transition: color 0.2s;
   }
 
-  .nav-links a:hover { color: var(--white); }
+  .nav-links-desktop a:hover, .nav-links a:hover { color: var(--white); }
 
   .nav-cta { display: none; }
+
+  .nav-links-desktop { display: none; }
 
   .nav-burger {
     display: flex !important;
@@ -631,4 +633,16 @@ h1 {
   .hero-meta { gap: 1rem; }
   .social-links { gap: 1rem; }
   .social-name { display: none; }
+}
+
+/* ─── NAV LINKS DESKTOP ─── */
+.nav-links-desktop {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+/* Hide mobile menu on desktop */
+.nav-links {
+  display: none;
 }
