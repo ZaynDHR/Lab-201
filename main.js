@@ -1,4 +1,6 @@
-// List of pages with their CSS files
+import { supabase } from './assets/js/supabase.js';
+
+// ─── PAGES À INJECTER ─────────────────────────────────────
 const pages = [
   { html: 'album.html',      css: 'assets/Album.css'      },
   { html: 'artiste.html',    css: 'assets/Artiste.css'    },
@@ -8,7 +10,7 @@ const pages = [
 
 const container = document.getElementById('pages-container');
 
-// Inject a CSS file into the page if not already loaded
+// ─── INJECTER UN CSS ──────────────────────────────────────
 function loadCSS(href) {
   if (!document.querySelector(`link[href="${href}"]`)) {
     const link = document.createElement('link');
@@ -18,26 +20,50 @@ function loadCSS(href) {
   }
 }
 
-// Fetch each file, extract its <section>, inject into page
-async function loadPages() {
-  for (const page of pages) {
+// ─── FORMAT DATE ──────────────────────────────────────────
+function formatDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  const day   = d.toLocaleDateString('fr-FR', { day: '2-digit' });
+  const month = d.toLocaleDateString('fr-FR', { month: 'short' }).toUpperCase().replace('.', '');
+  return `${day} ${month}`;
+}
 
-    // Load the page's CSS into index.html
-    loadCSS(page.css);
+// ─── CHARGER LES CONCERTS DANS #tour ──────────────────────
+async function loadConcerts() {
+  const { data, error } = await supabase
+    .from('concerts')
+    .select('*')
+    .order('date_concert', { ascending: true });
 
-    // Fetch the HTML file
-    const res = await fetch(page.html);
-    const html = await res.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const section = doc.querySelector('section');
-    if (section) {
-      section.classList.remove('page-section');
-      container.appendChild(section);
-    }
+  const list = document.getElementById('tour-list');
+  if (!list) return;
+
+  if (error || !data.length) {
+    list.innerHTML = `<div class="tour-empty">Aucune date annoncée pour le moment.</div>`;
+    return;
   }
 
-  // Init scroll reveal after all sections are loaded
+  list.innerHTML = data.map(c => `
+    <div class="tour-item reveal">
+      <div class="tour-date">${formatDate(c.date_concert)}</div>
+      <div>
+        <div class="tour-city">${c.ville}</div>
+        <div class="tour-venue">${c.lieu}</div>
+      </div>
+      <div class="tour-country">${c.pays}</div>
+      ${c.sold_out
+        ? `<span class="tour-ticket sold-out">Complet</span>`
+        : `<a href="tournee.html" class="tour-ticket">Billetterie</a>`
+      }
+    </div>
+  `).join('');
+
+  // Scroll reveal sur les nouveaux éléments
+  initReveal();
+}
+
+// ─── SCROLL REVEAL ────────────────────────────────────────
+function initReveal() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -47,7 +73,38 @@ async function loadPages() {
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
+}
+
+// ─── CHARGER LES PAGES ────────────────────────────────────
+async function loadPages() {
+  for (const page of pages) {
+    loadCSS(page.css);
+
+    const res  = await fetch(page.html);
+    const html = await res.text();
+    const parser  = new DOMParser();
+    const doc     = parser.parseFromString(html, 'text/html');
+    const section = doc.querySelector('section');
+
+    if (section) {
+      section.classList.remove('page-section');
+      container.appendChild(section);
+    }
+  }
+
+  // Remplacer le contenu statique de #tour par les données Supabase
+  await loadConcerts();
+
+  // Temps réel — si admin modifie une date, la home se met à jour
+  supabase
+    .channel('home-concerts')
+    .on('postgres_changes', { event: '*', schema: 'public', table: 'concerts' }, () => {
+      loadConcerts();
+    })
+    .subscribe();
+
+  initReveal();
 }
 
 loadPages();

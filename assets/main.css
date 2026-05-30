@@ -287,12 +287,15 @@ footer {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gray-mid);
-  border-bottom: 1px solid var(--gray-mid);
-  transition: color 0.2s;
+  border: 1px solid var(--gray-mid);
+  padding: 0.4rem 1rem;
+  transition: all 0.2s;
 }
 
 .footer-admin:hover {
-  color: var(--gray-light);
+  color: var(--white);
+  border-color: var(--red);
+  background: var(--red);
 }
 
 /* ─── FADE IN ─── */

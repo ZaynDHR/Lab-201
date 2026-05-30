@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin — YAMOTO / MAKALA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <div class="login-wrap">
+    <div class="login-logo">MAK<span>●</span>ALA</div>
+    <div class="login-sub">Interface d'administration</div>
+    <div class="divider"></div>
+    <div class="login-title">Connexion</div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="admin@yamoto.fr" autocomplete="email">
+    </div>
+
+    <div class="field">
+      <label for="password">Mot de passe</label>
+      <input type="password" id="password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+
+    <button class="btn-login" id="btn-login">Accéder →</button>
+    <div class="error-msg" id="error-msg">Email ou mot de passe incorrect.</div>
+
+    <a href="../index.html" class="back-link">← Retour au site</a>
+  </div>
+
+  <script type="module" src="../assets/js/login.js"></script>
+
+</body>
+</html>

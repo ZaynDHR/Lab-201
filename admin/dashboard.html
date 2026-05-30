@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Admin YAMOTO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="admin-nav">
+    <div class="admin-nav-logo">MAK<span>●</span>ALA <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.2em;color:var(--gray-light)">/ ADMIN</span></div>
+    <div class="admin-nav-right">
+      <span class="admin-nav-user" id="nav-user"></span>
+      <button class="btn-logout" id="btn-logout">Déconnexion</button>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="admin-main">
+
+    <div class="admin-header">
+      <div class="admin-title">
+        <span>Gestion des dates</span>
+        Tournée 2026
+      </div>
+      <button class="btn-primary" id="btn-add">+ Ajouter une date</button>
+    </div>
+
+    <!-- TABLE -->
+    <table class="concerts-table" id="concerts-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Ville</th>
+          <th>Pays</th>
+          <th>Lieu / Festival</th>
+          <th>Statut</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="concerts-body">
+        <tr>
+          <td colspan="6">
+            <div class="empty-state">
+              <p>Chargement...</p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </main>
+
+  <!-- MODAL AJOUT / MODIFICATION -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <button class="modal-close" id="modal-close">✕</button>
+      <div class="modal-title" id="modal-title">Ajouter une date</div>
+
+      <input type="hidden" id="concert-id">
+
+      <div class="form-field">
+        <label for="input-date">Date du concert</label>
+        <input type="date" id="input-date">
+      </div>
+
+      <div class="form-field">
+        <label for="input-ville">Ville</label>
+        <input type="text" id="input-ville" placeholder="Paris">
+      </div>
+
+      <div class="form-field">
+        <label for="input-pays">Pays</label>
+        <input type="text" id="input-pays" placeholder="France">
+      </div>
+
+      <div class="form-field">
+        <label for="input-lieu">Lieu / Festival</label>
+        <input type="text" id="input-lieu" placeholder="Zénith Paris — La Villette">
+      </div>
+
+      <div class="form-checkbox">
+        <input type="checkbox" id="input-soldout">
+        <label for="input-soldout">Sold-out</label>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn-primary" id="btn-save">Enregistrer</button>
+        <button class="btn-secondary" id="btn-cancel">Annuler</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+ <script type="module" src="../assets/js/dashboard.js"></script>
+
+</body>
+</html>
