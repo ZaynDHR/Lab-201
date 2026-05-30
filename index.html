@@ -11,8 +11,8 @@
 </head>
 <body>
 
-<!-- MENU MOBILE (hors nav pour z-index correct) -->
-<ul class="nav-links" id="nav-links">
+<!-- MENU MOBILE OVERLAY -->
+<ul class="mobile-menu" id="mobile-menu">
   <li><a href="#tracklist">Album</a></li>
   <li><a href="#artist">Artiste</a></li>
   <li><a href="#tour">Tournée</a></li>
@@ -22,7 +22,7 @@
 <!-- NAV -->
 <nav>
   <div class="nav-logo">MAK<span>●</span>ALA</div>
-  <ul class="nav-links-desktop">
+  <ul class="nav-links">
     <li><a href="#tracklist">Album</a></li>
     <li><a href="#artist">Artiste</a></li>
     <li><a href="#tour">Tournée</a></li>
@@ -46,9 +46,7 @@
   </div>
   <div class="hero-content">
     <div class="hero-eyebrow">Nouvel album — 23 janvier 2026</div>
-    <h1>
-      <img src="./png/Logo.png" alt="YAMOTO" class="hero-logo">
-    </h1>
+    <h1><img src="./png/Logo.png" alt="YAMOTO" class="hero-logo"></h1>
     <div class="hero-meta">
       <div class="hero-meta-item"><span class="meta-label">Artiste</span><span class="meta-value">Makala</span></div>
       <div class="hero-meta-item"><span class="meta-label">Label</span><span class="meta-value">Colors Records</span></div>
@@ -114,16 +112,18 @@
 
 <script>
   const burger = document.getElementById('nav-burger');
-  const navLinks = document.getElementById('nav-links');
+  const menu = document.getElementById('mobile-menu');
+
   burger.addEventListener('click', () => {
     burger.classList.toggle('open');
-    navLinks.classList.toggle('open');
-    document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
+    menu.classList.toggle('open');
+    document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
   });
-  navLinks.querySelectorAll('a').forEach(a => {
+
+  menu.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       burger.classList.remove('open');
-      navLinks.classList.remove('open');
+      menu.classList.remove('open');
       document.body.style.overflow = '';
     });
   });
