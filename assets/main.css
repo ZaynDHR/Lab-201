@@ -122,6 +122,40 @@ nav::after {
   color: var(--white);
 }
 
+/* ─── BURGER (hidden on desktop) ─── */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: crosshair;
+  padding: 4px;
+  background: none;
+  border: none;
+  z-index: 101;
+}
+
+.nav-burger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  transition: all 0.3s;
+  transform-origin: center;
+}
+
+.nav-burger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.nav-burger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-burger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 /* ─── BUTTONS ─── */
 .btn-primary {
   background: var(--red);
@@ -477,32 +511,53 @@ h1 {
   /* NAV */
   nav {
     padding: 1rem 1.25rem;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    flex-wrap: nowrap;
+    align-items: center;
   }
 
   nav::after { left: 1.25rem; right: 1.25rem; }
 
   .nav-logo { font-size: 1.2rem; }
 
+  /* Cacher les liens et le CTA par défaut */
   .nav-links {
-    order: 3;
-    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(5,5,5,0.98);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    gap: 1.25rem;
-    padding: 0.5rem 0;
+    gap: 2.5rem;
+    z-index: 99;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: all;
   }
 
   .nav-links a {
-    font-size: 10px;
-    letter-spacing: 0.12em;
+    font-size: 2rem;
+    font-family: var(--font-display);
+    letter-spacing: 0.2em;
+    color: var(--gray-light);
   }
 
-  .nav-cta {
-    font-size: 10px;
-    padding: 0.4rem 0.9rem;
-    width: auto;
-    align-self: flex-start;
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta { display: none; }
+
+  /* Afficher le burger */
+  .nav-burger {
+    display: flex;
+    z-index: 102;
   }
 
   /* HERO */
@@ -548,7 +603,6 @@ h1 {
 
   /* SOCIALS */
   #socials { padding: 3rem 1.25rem; }
-
   .social-links { gap: 1.5rem; }
 
   /* FOOTER */
@@ -561,7 +615,6 @@ h1 {
 
   /* SECTION HEADER */
   .section-title { font-size: 2.5rem; }
-
   .page-section { padding-top: 7rem; }
 }
 
@@ -569,14 +622,8 @@ h1 {
    SMALL MOBILE — max 480px
    ═══════════════════════════════ */
 @media (max-width: 480px) {
-
-  .nav-links { gap: 0.9rem; }
-
   .hero-logo { width: 160px; }
-
   .hero-meta { gap: 1rem; }
-
   .social-links { gap: 1rem; }
-
   .social-name { display: none; }
 }
