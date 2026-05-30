@@ -518,7 +518,10 @@ h1 {
   nav::after { left: 1.25rem; right: 1.25rem; }
 
   .nav-logo { font-size: 1.2rem; }
-
+ 
+  .nav-burger {
+  display: flex !important;
+}
   /* Cacher les liens et le CTA par défaut */
   .nav-links {
     position: fixed;
