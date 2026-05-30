@@ -2,7 +2,6 @@
    ALBUM.CSS — album.html
    ═══════════════════════════════ */
 
-/* ─── TRACKLIST SECTION ─── */
 #tracklist {
   padding: 8rem 3rem;
   position: relative;
@@ -22,7 +21,6 @@
   white-space: nowrap;
 }
 
-/* ─── TRACKLIST GRID ─── */
 .tracklist-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -30,7 +28,6 @@
   position: relative;
 }
 
-/* ─── TRACK ITEM ─── */
 .track-item {
   display: flex;
   align-items: center;
@@ -47,24 +44,15 @@
   content: '';
   position: absolute;
   left: -100%;
-  top: 0;
-  bottom: 0;
+  top: 0; bottom: 0;
   width: 100%;
   background: rgba(200,0,26,0.05);
   transition: left 0.3s ease;
 }
 
-.track-item:hover::before {
-  left: 0;
-}
-
-.track-item:hover .track-name {
-  color: var(--white);
-}
-
-.track-item:hover .track-num {
-  color: var(--red);
-}
+.track-item:hover::before { left: 0; }
+.track-item:hover .track-name { color: var(--white); }
+.track-item:hover .track-num { color: var(--red); }
 
 .track-num {
   font-size: 11px;
@@ -146,9 +134,7 @@
   z-index: 1;
 }
 
-.cover-info {
-  padding-top: 0.5rem;
-}
+.cover-info { padding-top: 0.5rem; }
 
 .cover-info h3 {
   font-family: var(--font-display);
@@ -180,12 +166,19 @@
 /* ─── MOBILE ─── */
 @media (max-width: 768px) {
 
-  #tracklist {
-    padding: 4rem 1.5rem;
+  #tracklist { padding: 4rem 1.25rem; }
+
+  .tracklist-grid { grid-template-columns: 1fr; }
+
+  .album-cover {
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
-  .tracklist-grid {
-    grid-template-columns: 1fr;
+  .cover-placeholder {
+    width: 160px;
+    height: 160px;
   }
 
+  .track-play { display: none; }
 }

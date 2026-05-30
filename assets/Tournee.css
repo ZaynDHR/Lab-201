@@ -2,14 +2,9 @@
    TOURNEE.CSS — tournee.html
    ═══════════════════════════════ */
 
-/* ─── TOUR SECTION ─── */
-#tour {
-  padding: 8rem 3rem;
-}
+#tour { padding: 8rem 3rem; }
 
-.tour-list {
-  margin-top: 3rem;
-}
+.tour-list { margin-top: 3rem; }
 
 /* ─── TOUR ITEM ─── */
 .tour-item {
@@ -23,17 +18,9 @@
   transition: all 0.2s;
 }
 
-.tour-item:first-child {
-  border-top: 1px solid var(--gray);
-}
-
-.tour-item:hover {
-  padding-left: 1rem;
-}
-
-.tour-item:hover .tour-date {
-  color: var(--red);
-}
+.tour-item:first-child { border-top: 1px solid var(--gray); }
+.tour-item:hover { padding-left: 1rem; }
+.tour-item:hover .tour-date { color: var(--red); }
 
 .tour-date {
   font-family: var(--font-display);
@@ -64,7 +51,6 @@
   color: var(--gray-mid);
 }
 
-/* ─── TICKET BUTTON ─── */
 .tour-ticket {
   font-size: 10px;
   letter-spacing: 0.2em;
@@ -74,6 +60,7 @@
   color: var(--gray-light);
   transition: all 0.2s;
   white-space: nowrap;
+  text-align: center;
 }
 
 .tour-ticket:hover {
@@ -88,20 +75,51 @@
   cursor: not-allowed;
 }
 
+/* ─── ÉTATS ─── */
+.tour-loading,
+.tour-empty {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray-mid);
+  padding: 3rem 0;
+  text-align: center;
+}
+
 /* ─── MOBILE ─── */
 @media (max-width: 768px) {
 
-  #tour {
-    padding: 4rem 1.5rem;
-  }
+  #tour { padding: 4rem 1.25rem; }
 
   .tour-item {
-    grid-template-columns: 80px 1fr auto;
-    gap: 1rem;
+    grid-template-columns: 70px 1fr auto;
+    gap: 0.75rem;
+    padding: 1.25rem 0;
   }
 
-  .tour-country {
-    display: none;
+  .tour-country { display: none; }
+
+  .tour-date { font-size: 1.1rem; }
+
+  .tour-city { font-size: 13px; }
+
+  .tour-venue { font-size: 11px; }
+
+  .tour-ticket {
+    font-size: 9px;
+    padding: 0.4rem 0.75rem;
+    letter-spacing: 0.1em;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .tour-item {
+    grid-template-columns: 60px 1fr auto;
+    gap: 0.5rem;
   }
 
+  .tour-venue { display: none; }
+
+  .tour-date { font-size: 1rem; }
 }

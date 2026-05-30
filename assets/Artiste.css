@@ -2,14 +2,12 @@
    ARTISTE.CSS — artiste.html
    ═══════════════════════════════ */
 
-/* ─── ARTIST SECTION ─── */
 #artist {
   padding: 8rem 3rem;
   background: #080808;
   position: relative;
 }
 
-/* ─── BIO GRID ─── */
 .bio-grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -18,7 +16,6 @@
   margin-top: 4rem;
 }
 
-/* ─── PORTRAIT ─── */
 .bio-portrait {
   aspect-ratio: 3/4;
   background: var(--gray);
@@ -47,10 +44,7 @@
   pointer-events: none;
 }
 
-/* ─── BIO TEXT ─── */
-.bio-text {
-  padding-top: 1rem;
-}
+.bio-text { padding-top: 1rem; }
 
 .bio-text h2 {
   font-family: var(--font-display);
@@ -79,7 +73,6 @@
   letter-spacing: 0.03em;
 }
 
-/* ─── BIO STATS ─── */
 .bio-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -113,21 +106,24 @@
 /* ─── MOBILE ─── */
 @media (max-width: 768px) {
 
-  #artist {
-    padding: 4rem 1.5rem;
-  }
+  #artist { padding: 4rem 1.25rem; }
 
   .bio-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
   }
 
-  .bio-portrait {
-    aspect-ratio: 4/3;
-  }
+  .bio-portrait { aspect-ratio: 4/3; }
 
-  .bio-text h2 {
-    font-size: 3.5rem;
-  }
+  .bio-text h2 { font-size: 3rem; }
 
+  .bio-text p { font-size: 13px; }
+
+  .bio-stats { grid-template-columns: repeat(3, 1fr); }
+
+  .bio-stat { padding: 1rem; }
+
+  .bio-stat .stat-num { font-size: 1.8rem; }
+
+  .bio-stat .stat-label { font-size: 9px; }
 }
