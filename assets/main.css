@@ -537,10 +537,11 @@ h1 {
   }
 
   .nav-links.open {
-    opacity: 1;
-    pointer-events: all;
-  }
-
+  opacity: 1;
+  pointer-events: all;
+  display: flex !important;
+  overflow: visible;
+}
   .nav-links a {
     font-size: 2rem;
     font-family: var(--font-display);
