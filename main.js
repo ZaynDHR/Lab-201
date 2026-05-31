@@ -1,5 +1,3 @@
-import { supabase } from './assets/js/supabase.js';
-
 // ─── PAGES À INJECTER ─────────────────────────────────────
 const pages = [
   { html: 'album.html',      css: 'assets/Album.css'      },
@@ -28,40 +26,6 @@ function formatDate(dateStr) {
   return `${day} ${month}`;
 }
 
-// ─── CHARGER LES CONCERTS DANS #tour ──────────────────────
-async function loadConcerts() {
-  const { data, error } = await supabase
-    .from('concerts')
-    .select('*')
-    .order('date_concert', { ascending: true });
-
-  const list = document.getElementById('tour-list');
-  if (!list) return;
-
-  if (error || !data.length) {
-    list.innerHTML = `<div class="tour-empty">Aucune date annoncée pour le moment.</div>`;
-    return;
-  }
-
-  list.innerHTML = data.map(c => `
-    <div class="tour-item reveal">
-      <div class="tour-date">${formatDate(c.date_concert)}</div>
-      <div>
-        <div class="tour-city">${c.ville}</div>
-        <div class="tour-venue">${c.lieu}</div>
-      </div>
-      <div class="tour-country">${c.pays}</div>
-      ${c.sold_out
-        ? `<span class="tour-ticket sold-out">Complet</span>`
-        : `<a href="tournee.html" class="tour-ticket">Billetterie</a>`
-      }
-    </div>
-  `).join('');
-
-  // Scroll reveal sur les nouveaux éléments
-  initReveal();
-}
-
 // ─── SCROLL REVEAL ────────────────────────────────────────
 function initReveal() {
   const observer = new IntersectionObserver((entries) => {
@@ -76,34 +40,81 @@ function initReveal() {
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
 }
 
+// ─── CHARGER LES CONCERTS ─────────────────────────────────
+async function loadConcerts() {
+  const list = document.getElementById('tour-list');
+  if (!list) return;
+
+  try {
+    const { supabase } = await import('./assets/js/supabase.js');
+
+    const { data, error } = await supabase
+      .from('concerts')
+      .select('*')
+      .order('date_concert', { ascending: true });
+
+    if (error || !data || !data.length) {
+      list.innerHTML = `<div class="tour-empty">Aucune date annoncée pour le moment.</div>`;
+      return;
+    }
+
+    list.innerHTML = data.map(c => `
+      <div class="tour-item reveal">
+        <div class="tour-date">${formatDate(c.date_concert)}</div>
+        <div>
+          <div class="tour-city">${c.ville}</div>
+          <div class="tour-venue">${c.lieu}</div>
+        </div>
+        <div class="tour-country">${c.pays}</div>
+        ${c.sold_out
+          ? `<span class="tour-ticket sold-out">Complet</span>`
+          : `<a href="tournee.html" class="tour-ticket">Billetterie</a>`
+        }
+      </div>
+    `).join('');
+
+    initReveal();
+
+    supabase
+      .channel('home-concerts')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'concerts' }, () => {
+        loadConcerts();
+      })
+      .subscribe();
+
+  } catch (e) {
+    console.warn('Supabase non disponible:', e);
+    list.innerHTML = `<div class="tour-empty">Aucune date annoncée pour le moment.</div>`;
+  }
+}
+
 // ─── CHARGER LES PAGES ────────────────────────────────────
 async function loadPages() {
   for (const page of pages) {
-    loadCSS(page.css);
+    try {
+      loadCSS(page.css);
 
-    const res  = await fetch(page.html);
-    const html = await res.text();
-    const parser  = new DOMParser();
-    const doc     = parser.parseFromString(html, 'text/html');
-    const section = doc.querySelector('section');
+      const res = await fetch(page.html);
+      if (!res.ok) throw new Error(`Erreur HTTP ${res.status} pour ${page.html}`);
 
-    if (section) {
-      section.classList.remove('page-section');
-      container.appendChild(section);
+      const html = await res.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+
+      // On prend uniquement la <section> principale, pas le nav ni le footer
+      const section = doc.querySelector('section');
+
+      if (section) {
+        container.appendChild(section);
+      } else {
+        console.warn(`Pas de <section> trouvée dans ${page.html}`);
+      }
+    } catch (e) {
+      console.error(`Impossible de charger ${page.html}:`, e);
     }
   }
 
-  // Remplacer le contenu statique de #tour par les données Supabase
   await loadConcerts();
-
-  // Temps réel — si admin modifie une date, la home se met à jour
-  supabase
-    .channel('home-concerts')
-    .on('postgres_changes', { event: '*', schema: 'public', table: 'concerts' }, () => {
-      loadConcerts();
-    })
-    .subscribe();
-
   initReveal();
 }
 
