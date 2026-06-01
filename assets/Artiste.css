@@ -18,30 +18,23 @@
 
 .bio-portrait {
   aspect-ratio: 3/4;
-  background: var(--gray);
   position: relative;
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.bio-portrait::after {
-  content: 'PHOTO\ARTISTE';
-  white-space: pre;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.3em;
-  color: var(--gray-mid);
-  text-align: center;
-  text-transform: uppercase;
 }
 
 .bio-portrait .portrait-frame {
   position: absolute;
-  inset: 12px;
+  inset: 0;
   border: 1px solid rgba(200,0,26,0.2);
-  pointer-events: none;
+  overflow: hidden;
+}
+
+.portrait-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
 }
 
 .bio-text { padding-top: 1rem; }
@@ -52,6 +45,7 @@
   letter-spacing: 0.05em;
   line-height: 0.9;
   margin-bottom: 2rem;
+  color: #FFC44D;
 }
 
 .bio-text h2 em {
@@ -63,6 +57,7 @@
   color: var(--gray-light);
   font-weight: 300;
   margin-bottom: 0.5rem;
+  color: #FFC44D;
 }
 
 .bio-text p {
@@ -91,7 +86,7 @@
 .bio-stat .stat-num {
   font-family: var(--font-display);
   font-size: 2.5rem;
-  color: var(--white);
+  color: #FFC44D;
   letter-spacing: 0.05em;
 }
 

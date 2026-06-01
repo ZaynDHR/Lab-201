@@ -22,7 +22,6 @@ const btnSave       = document.getElementById('btn-save');
 const btnCancel     = document.getElementById('btn-cancel');
 const modalClose    = document.getElementById('modal-close');
 const toast         = document.getElementById('toast');
-
 const inputId       = document.getElementById('concert-id');
 const inputDate     = document.getElementById('input-date');
 const inputVille    = document.getElementById('input-ville');
