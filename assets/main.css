@@ -324,6 +324,7 @@ footer {
 /* ─── HERO ─── */
 #hero {
   min-height: 100vh;
+  height: 140vh;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -347,17 +348,17 @@ footer {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 40%;
+  width: 70%;
   height: 100%;
   overflow: hidden;
-  clip-path: polygon(8% 0%, 100% 0%, 100% 100%, 0% 100%);
+  clip-path: polygon(15% 0%, 100% 0%, 100% 100%, 0% 100%);
 }
 
 .hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center center;
 }
 
 .hero-image-placeholder::before {
@@ -367,6 +368,22 @@ footer {
   background:
   repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(200,0,26,0.04) 60px, rgba(200,0,26,0.04) 61px),
   repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(200,0,26,0.04) 60px, rgba(200,0,26,0.04) 61px);
+  z-index: 1;
+}
+
+/* ─── LEFT GRADIENT to blend photo into content area ─── */
+.hero-image-placeholder::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(5,5,5,0.65) 0%,
+    rgba(5,5,5,0.2) 35%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 2;
 }
 
 .hero-image-placeholder .scanline {
@@ -376,6 +393,7 @@ footer {
   height: 2px;
   background: rgba(200,0,26,0.3);
   animation: scan 4s linear infinite;
+  z-index: 3;
 }
 
 @keyframes scan {
@@ -388,7 +406,7 @@ footer {
 .hero-content {
   position: relative;
   z-index: 10;
-  max-width: 50%;
+  max-width: 42%;
 }
 
 .hero-eyebrow {

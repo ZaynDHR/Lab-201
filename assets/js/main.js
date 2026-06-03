@@ -1,9 +1,9 @@
 // ─── PAGES À INJECTER ─────────────────────────────────────
 const pages = [
-  { html: 'album.html',      css: 'assets/Album.css'      },
-  { html: 'artiste.html',    css: 'assets/Artiste.css'    },
-  { html: 'tournee.html',    css: 'assets/Tournee.css'    },
-  { html: 'actualites.html', css: 'assets/Actualites.css' },
+  { html: './album.html',      css: '../assets/Album.css'      },
+  { html: './artiste.html',    css: '../assets/Artiste.css'    },
+  { html: './tournee.html',    css: '../assets/Tournee.css'    },
+  { html: './actualites.html', css: '../assets/Actualites.css' },
 ];
 
 const container = document.getElementById('pages-container');
@@ -46,7 +46,7 @@ async function loadConcerts() {
   if (!list) return;
 
   try {
-    const { supabase } = await import('./assets/js/supabase.js');
+    const { supabase } = await import('./supabase.js');
 
     const { data, error } = await supabase
       .from('concerts')
