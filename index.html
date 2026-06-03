@@ -21,7 +21,7 @@
 </ul>
 
 <!-- NAV -->
-<nav>
+<nav id="main-nav">
   <div class="nav-logo">
     <a href="/pages/index.html"><img src="../png/yamoto.png" alt="Logo" class="nav-logo-img"></a>
   </div>
@@ -118,6 +118,7 @@
 </footer>
 
 <script>
+  /* ── Mobile burger menu ── */
   const burger = document.getElementById('nav-burger');
   const menu = document.getElementById('mobile-menu');
 
@@ -134,6 +135,17 @@
       document.body.style.overflow = '';
     });
   });
+
+  /* ── Scroll-triggered navbar ── */
+  const nav = document.getElementById('main-nav');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      nav.classList.add('scrolled');
+    } else {
+      nav.classList.remove('scrolled');
+    }
+  }, { passive: true });
 </script>
 
 <script type="module" src="../assets/js/main.js"></script>

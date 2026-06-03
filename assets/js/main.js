@@ -1,9 +1,9 @@
 // ─── PAGES À INJECTER ─────────────────────────────────────
 const pages = [
-  { html: './album.html',      css: '../assets/Album.css'      },
-  { html: './artiste.html',    css: '../assets/Artiste.css'    },
-  { html: './tournee.html',    css: '../assets/Tournee.css'    },
-  { html: './actualites.html', css: '../assets/Actualites.css' },
+  { html: './pages/album.html',      css: '../assets/Album.css'      },
+  { html: './pages/artiste.html',    css: '../assets/Artiste.css'    },
+  { html: './pages/tournee.html',    css: '../assets/Tournee.css'    },
+  { html: './pages/actualites.html', css: '../assets/Actualites.css' },
 ];
 
 const container = document.getElementById('pages-container');
