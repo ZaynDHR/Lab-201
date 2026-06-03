@@ -1,9 +1,9 @@
 // ─── PAGES À INJECTER ─────────────────────────────────────
 const pages = [
-  { html: './pages/album.html',      css: '../assets/Album.css'      },
-  { html: './pages/artiste.html',    css: '../assets/Artiste.css'    },
-  { html: './pages/tournee.html',    css: '../assets/Tournee.css'    },
-  { html: './pages/actualites.html', css: '../assets/Actualites.css' },
+  { html: './pages/album.html',      css: 'assets/Album.css'      },
+  { html: './pages/artiste.html',    css: 'assets/Artiste.css'    },
+  { html: './pages/tournee.html',    css: 'assets/Tournee.css'    },
+  { html: './pages/actualites.html', css: 'assets/Actualites.css' },
 ];
 
 const container = document.getElementById('pages-container');
@@ -105,6 +105,12 @@ async function loadPages() {
       const section = doc.querySelector('section');
 
       if (section) {
+        section.querySelectorAll('img').forEach(img => {
+          const src = img.getAttribute('src');
+          if (src?.startsWith('../png/')) {
+            img.setAttribute('src', src.replace('../', './'));
+          }
+        });
         container.appendChild(section);
       } else {
         console.warn(`Pas de <section> trouvée dans ${page.html}`);
